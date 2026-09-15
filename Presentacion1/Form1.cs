@@ -14,50 +14,30 @@ namespace Presentacion1
 {
     public partial class Form1 : Form
     {
-        public object Aplication { get; private set; }
         private List<Articulo> listaArticulos;
+
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            frmMarcas ventana = new frmMarcas();
-            ventana.ShowDialog();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frmArticulos ventana = new frmArticulos();
-            ventana.ShowDialog();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            frmCategorias ventana = new frmCategorias();
-            ventana.ShowDialog();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             dgvArticulos.DataError += dgvArticulos_DataError;
             cargarDatos();
+            dgvArticulos.Focus();
         }
+
         private void cargarDatos()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                listaArticulos = negocio.listar();
+                listaArticulos = negocio.listar(false);
                 dgvArticulos.DataSource = listaArticulos;
                 dgvArticulos.ReadOnly = true;
                 dgvArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvArticulos.StandardTab = true;    
                 ocultarColumnas();
             }
             catch (Exception ex)
@@ -73,12 +53,81 @@ namespace Presentacion1
 
             if (dgvArticulos.Columns["Imagenes"] != null)
                 dgvArticulos.Columns["Imagenes"].Visible = false;
+
             if (dgvArticulos.Columns["Precio"] != null)
                 dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "C";
         }
+
         private void dgvArticulos_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        // --- NUEVOS BOTONES DE ACCIÓN PARA ARTÍCULOS ---
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            FrmArticuloAltas alta = new FrmArticuloAltas();
+            alta.ShowDialog();
+            cargarDatos(); // Recarga la grilla al cerrar la ventana de alta
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.CurrentRow != null)
+            {
+                // Obtenemos el artículo seleccionado de la grilla
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+                // Se lo pasamos por constructor a la ventana de altas para que lo cargue
+                FrmArticuloAltas modificar = new FrmArticuloAltas(seleccionado);
+                modificar.ShowDialog();
+
+                // Recargamos la grilla al cerrar
+                cargarDatos();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccioná un artículo de la grilla para editar.");
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                DialogResult respuesta = MessageBox.Show("¿Estás seguro de que querés eliminar el artículo " + seleccionado.Nombre + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    negocio.eliminar(seleccionado.Id);
+                    cargarDatos();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccioná un artículo de la grilla para eliminar.");
+            }
+        }
+
+        
+        private void btnMarcas_Click(object sender, EventArgs e)
+        {
+            frmMarcas ventana = new frmMarcas();
+            ventana.ShowDialog();
+        }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+            frmCategorias ventana = new frmCategorias();
+            ventana.ShowDialog();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
