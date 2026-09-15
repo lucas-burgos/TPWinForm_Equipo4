@@ -36,76 +36,66 @@
             this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
+
             // label1
-            // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 33);
+            this.label1.Location = new System.Drawing.Point(30, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Descripción :";
-            // 
+            this.label1.Size = new System.Drawing.Size(65, 15);
+            this.label1.Text = "Descripción";
+
             // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(87, 30);
+            this.textBox1.Location = new System.Drawing.Point(110, 27);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 176);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 2;
-            // 
+            this.textBox1.Size = new System.Drawing.Size(250, 23);
+
             // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(15, 114);
+            this.button1.Location = new System.Drawing.Point(30, 70);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
+            this.button1.Size = new System.Drawing.Size(100, 30);
             this.button1.Text = "Agregar";
             this.button1.UseVisualStyleBackColor = true;
-            // 
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+
             // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(112, 114);
+            this.button2.Location = new System.Drawing.Point(140, 70);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
+            this.button2.Size = new System.Drawing.Size(100, 30);
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
+
             // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(213, 114);
+            this.button3.Location = new System.Drawing.Point(250, 70);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
+            this.button3.Size = new System.Drawing.Size(100, 30);
             this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = true;
-            // 
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+
+            // dataGridView1
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(30, 120);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(500, 250);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+
             // frmMarcas
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(816, 451);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.dataGridView1);
             this.Name = "frmMarcas";
-            this.Text = "frmMarcas";
+            this.Text = "Marcas";
+
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
