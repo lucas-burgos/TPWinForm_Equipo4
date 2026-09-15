@@ -9,19 +9,31 @@ namespace Negocio
 {
     public class ArticuloNegocio
     {
-        public List<Articulo> listar()
+        public List<Articulo> listar(bool MostrarTodo)
         {
             List<Articulo> lista = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
-                                     "A.IdMarca, M.Descripcion AS Marca, " +
-                                     "A.IdCategoria, C.Descripcion AS Categoria " +
-                                     "FROM ARTICULOS A " +
-                                     "LEFT JOIN MARCAS M ON M.Id = A.IdMarca " +
-                                     "LEFT JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+if (MostrarTodo)
+                {
+                    datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
+                                         "A.IdMarca, M.Descripcion AS Marca, " +
+                                         "A.IdCategoria, C.Descripcion AS Categoria " +
+                                         "FROM ARTICULOS A " +
+                                         "LEFT JOIN MARCAS M ON M.Id = A.IdMarca " +
+                                         "LEFT JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+                }
+else
+                {
+                    datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, " +
+     "A.IdMarca, M.Descripcion AS Marca, " +
+     "A.IdCategoria, C.Descripcion AS Categoria " +
+     "FROM ARTICULOS A " +
+     "INNER JOIN MARCAS M ON M.Id = A.IdMarca " +
+     "INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+                }
 
                 datos.ejecutarLectura();
 
@@ -117,7 +129,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @precio)");
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) OUTPUT INSERTED.Id VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @precio)");
 
                 datos.setearParametro("@codigo", nuevo.Codigo);
                 datos.setearParametro("@nombre", nuevo.Nombre);
@@ -126,7 +138,31 @@ namespace Negocio
                 datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
                 datos.setearParametro("@precio", nuevo.Precio);
 
-                datos.ejecutarAccion();
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    nuevo.Id = (int)datos.Lector["Id"];
+                }
+                datos.cerrarConexion(); // Cerramos la conexión principal antes de abrir otras
+
+                if (nuevo.Imagenes != null)
+                {
+                    foreach (Imagen img in nuevo.Imagenes)
+                    {
+                        AccesoDatos datosImg = new AccesoDatos();
+                        try
+                        {
+                            datosImg.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@idArticulo, @imagenUrl)");
+                            datosImg.setearParametro("@idArticulo", nuevo.Id);
+                            datosImg.setearParametro("@imagenUrl", img.ImagenUrl);
+                            datosImg.ejecutarAccion();
+                        }
+                        finally
+                        {
+                            datosImg.cerrarConexion();
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
@@ -142,8 +178,8 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                // 1. Modificamos los datos principales del artículo
                 datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio WHERE Id = @id");
-
                 datos.setearParametro("@codigo", articulo.Codigo);
                 datos.setearParametro("@nombre", articulo.Nombre);
                 datos.setearParametro("@descripcion", articulo.Descripcion);
@@ -151,16 +187,45 @@ namespace Negocio
                 datos.setearParametro("@idCategoria", articulo.Categoria.Id);
                 datos.setearParametro("@precio", articulo.Precio);
                 datos.setearParametro("@id", articulo.Id);
-
                 datos.ejecutarAccion();
+                datos.cerrarConexion(); // Cerramos antes de ejecutar la siguiente consulta
+
+                // 2. Borramos las imágenes viejas de este artículo
+                AccesoDatos datosBorrarImg = new AccesoDatos();
+                try
+                {
+                    datosBorrarImg.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @idArticulo");
+                    datosBorrarImg.setearParametro("@idArticulo", articulo.Id);
+                    datosBorrarImg.ejecutarAccion();
+                }
+                finally
+                {
+                    datosBorrarImg.cerrarConexion();
+                }
+
+                // 3. Insertamos la lista de imágenes actualizadas
+                if (articulo.Imagenes != null)
+                {
+                    foreach (Imagen img in articulo.Imagenes)
+                    {
+                        AccesoDatos datosImg = new AccesoDatos();
+                        try
+                        {
+                            datosImg.setearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenUrl) VALUES (@idArticulo, @imagenUrl)");
+                            datosImg.setearParametro("@idArticulo", articulo.Id);
+                            datosImg.setearParametro("@imagenUrl", img.ImagenUrl);
+                            datosImg.ejecutarAccion();
+                        }
+                        finally
+                        {
+                            datosImg.cerrarConexion();
+                        }
+                    }
+                }
             }
             catch (Exception)
             {
                 throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
             }
         }
         public void eliminar(int id)
