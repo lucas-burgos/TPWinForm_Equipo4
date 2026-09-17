@@ -2,15 +2,8 @@
 {
     partial class frmMarcas
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
@@ -36,53 +25,78 @@
             this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-
+            // 
             // label1
+            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(30, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 15);
+            this.label1.TabIndex = 5;
             this.label1.Text = "Descripción";
-
+            // 
             // textBox1
+            // 
+            this.textBox1.AccessibleDescription = "Ingrese el nombre de la marca";
+            this.textBox1.AccessibleName = "Descripción de Marca";
             this.textBox1.Location = new System.Drawing.Point(110, 27);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(250, 23);
-
+            this.textBox1.TabIndex = 0;
+            // 
             // button1
+            // 
+            this.button1.AccessibleDescription = "Guarda una nueva marca en la base de datos";
+            this.button1.AccessibleName = "Agregar Marca";
             this.button1.Location = new System.Drawing.Point(30, 70);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 30);
+            this.button1.TabIndex = 1;
             this.button1.Text = "Agregar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-
+            // 
             // button2
+            // 
+            this.button2.AccessibleDescription = "Guarda los cambios de la marca seleccionada";
+            this.button2.AccessibleName = "Modificar Marca";
             this.button2.Location = new System.Drawing.Point(140, 70);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 30);
+            this.button2.TabIndex = 2;
             this.button2.Text = "Modificar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-
+            // 
             // button3
+            // 
+            this.button3.AccessibleDescription = "Borra la marca seleccionada";
+            this.button3.AccessibleName = "Eliminar Marca";
             this.button3.Location = new System.Drawing.Point(250, 70);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 30);
+            this.button3.TabIndex = 3;
             this.button3.Text = "Eliminar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-
+            // 
             // dataGridView1
+            // 
+            this.dataGridView1.AccessibleDescription = "Tabla con las marcas registradas";
+            this.dataGridView1.AccessibleName = "Lista de Marcas";
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(30, 120);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(500, 250);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.StandardTab = true;
+            this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-
+            // 
             // frmMarcas
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(816, 451);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -92,10 +106,11 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "frmMarcas";
             this.Text = "Marcas";
-
+            this.Load += new System.EventHandler(this.frmMarcas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

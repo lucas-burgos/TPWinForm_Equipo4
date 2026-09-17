@@ -20,6 +20,7 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnVerDetalle = new System.Windows.Forms.Button();
             this.btnMarcas = new System.Windows.Forms.Button();
             this.btnCategorias = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
@@ -58,12 +59,22 @@
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // btnVerDetalle
+            // 
+            this.btnVerDetalle.Location = new System.Drawing.Point(695, 160);
+            this.btnVerDetalle.Name = "btnVerDetalle";
+            this.btnVerDetalle.Size = new System.Drawing.Size(85, 30);
+            this.btnVerDetalle.TabIndex = 3;
+            this.btnVerDetalle.Text = "Ver Detalle";
+            this.btnVerDetalle.UseVisualStyleBackColor = true;
+            this.btnVerDetalle.Click += new System.EventHandler(this.btnVerDetalle_Click);
+            // 
             // btnMarcas
             // 
             this.btnMarcas.Location = new System.Drawing.Point(695, 200);
             this.btnMarcas.Name = "btnMarcas";
             this.btnMarcas.Size = new System.Drawing.Size(85, 30);
-            this.btnMarcas.TabIndex = 3;
+            this.btnMarcas.TabIndex = 4;
             this.btnMarcas.Text = "Ver Marcas";
             this.btnMarcas.UseVisualStyleBackColor = true;
             this.btnMarcas.Click += new System.EventHandler(this.btnMarcas_Click);
@@ -73,7 +84,7 @@
             this.btnCategorias.Location = new System.Drawing.Point(695, 240);
             this.btnCategorias.Name = "btnCategorias";
             this.btnCategorias.Size = new System.Drawing.Size(85, 30);
-            this.btnCategorias.TabIndex = 4;
+            this.btnCategorias.TabIndex = 5;
             this.btnCategorias.Text = "Ver Categorías";
             this.btnCategorias.UseVisualStyleBackColor = true;
             this.btnCategorias.Click += new System.EventHandler(this.btnCategorias_Click);
@@ -83,7 +94,7 @@
             this.btnSalir.Location = new System.Drawing.Point(695, 370);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(85, 30);
-            this.btnSalir.TabIndex = 5;
+            this.btnSalir.TabIndex = 6;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
@@ -94,15 +105,15 @@
             this.dgvArticulos.Location = new System.Drawing.Point(12, 40);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.Size = new System.Drawing.Size(660, 360);
-            this.dgvArticulos.TabIndex = 6;
+            this.dgvArticulos.TabIndex = 7;
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Location = new System.Drawing.Point(12, 13);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(117, 13);
-            this.lblTitulo.TabIndex = 7;
+            this.lblTitulo.Size = new System.Drawing.Size(114, 13);
+            this.lblTitulo.TabIndex = 8;
             this.lblTitulo.Text = "Catálogo de productos";
             // 
             // Form1
@@ -115,6 +126,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnCategorias);
             this.Controls.Add(this.btnMarcas);
+            this.Controls.Add(this.btnVerDetalle);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnAgregar);
@@ -132,6 +144,7 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.Button btnVerDetalle; // <-- Variable del botón
         private System.Windows.Forms.Button btnMarcas;
         private System.Windows.Forms.Button btnCategorias;
         private System.Windows.Forms.Button btnSalir;

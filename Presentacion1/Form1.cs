@@ -63,7 +63,6 @@ namespace Presentacion1
             e.Cancel = true;
         }
 
-        // --- NUEVOS BOTONES DE ACCIÓN PARA ARTÍCULOS ---
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -76,14 +75,11 @@ namespace Presentacion1
         {
             if (dgvArticulos.CurrentRow != null)
             {
-                // Obtenemos el artículo seleccionado de la grilla
                 Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
 
-                // Se lo pasamos por constructor a la ventana de altas para que lo cargue
                 FrmArticuloAltas modificar = new FrmArticuloAltas(seleccionado);
                 modificar.ShowDialog();
 
-                // Recargamos la grilla al cerrar
                 cargarDatos();
             }
             else
@@ -128,6 +124,21 @@ namespace Presentacion1
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+                FrmVerArticulo ver = new FrmVerArticulo(seleccionado);
+                ver.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccioná un artículo de la grilla para ver sus detalles.");
+            }
         }
     }
 }
