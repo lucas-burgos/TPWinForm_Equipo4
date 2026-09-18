@@ -26,6 +26,7 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,11 +117,20 @@
             this.lblTitulo.TabIndex = 8;
             this.lblTitulo.Text = "Catálogo de productos";
             // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Location = new System.Drawing.Point(132, 13);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(100, 20);
+            this.txtBuscar.TabIndex = 9;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 420);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.dgvArticulos);
             this.Controls.Add(this.btnSalir);
@@ -150,5 +160,6 @@
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.TextBox txtBuscar;
     }
 }

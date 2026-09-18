@@ -140,5 +140,15 @@ namespace Presentacion1
                 MessageBox.Show("Por favor, seleccioná un artículo de la grilla para ver sus detalles.");
             }
         }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            string texto = txtBuscar.Text.ToLower();
+            List<Articulo> filtrados = listaArticulos
+                .Where(x => x.Nombre.ToLower().Contains(texto))
+                .ToList();
+            dgvArticulos.DataSource = filtrados;
+            ocultarColumnas();
+        }
     }
 }
