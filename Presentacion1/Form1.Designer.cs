@@ -27,6 +27,10 @@
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.lblFiltroMarca = new System.Windows.Forms.Label();
+            this.cboFiltroMarca = new System.Windows.Forms.ComboBox();
+            this.lblFiltroCategoria = new System.Windows.Forms.Label();
+            this.cboFiltroCategoria = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,23 +117,65 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Location = new System.Drawing.Point(12, 13);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(114, 13);
+            this.lblTitulo.Size = new System.Drawing.Size(32, 13);
             this.lblTitulo.TabIndex = 8;
-            this.lblTitulo.Text = "Catálogo de productos";
+            this.lblTitulo.Text = "Filtro:";
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(132, 13);
+            this.txtBuscar.Location = new System.Drawing.Point(50, 10);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(100, 20);
+            this.txtBuscar.Size = new System.Drawing.Size(120, 20);
             this.txtBuscar.TabIndex = 9;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
+            // 
+            // lblFiltroMarca
+            // 
+            this.lblFiltroMarca.AutoSize = true;
+            this.lblFiltroMarca.Location = new System.Drawing.Point(190, 13);
+            this.lblFiltroMarca.Name = "lblFiltroMarca";
+            this.lblFiltroMarca.Size = new System.Drawing.Size(40, 13);
+            this.lblFiltroMarca.TabIndex = 10;
+            this.lblFiltroMarca.Text = "Marca:";
+            // 
+            // cboFiltroMarca
+            // 
+            this.cboFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFiltroMarca.FormattingEnabled = true;
+            this.cboFiltroMarca.Location = new System.Drawing.Point(235, 10);
+            this.cboFiltroMarca.Name = "cboFiltroMarca";
+            this.cboFiltroMarca.Size = new System.Drawing.Size(120, 21);
+            this.cboFiltroMarca.TabIndex = 11;
+            this.cboFiltroMarca.SelectedIndexChanged += new System.EventHandler(this.cboFiltroMarca_SelectedIndexChanged);
+            // 
+            // lblFiltroCategoria
+            // 
+            this.lblFiltroCategoria.AutoSize = true;
+            this.lblFiltroCategoria.Location = new System.Drawing.Point(375, 13);
+            this.lblFiltroCategoria.Name = "lblFiltroCategoria";
+            this.lblFiltroCategoria.Size = new System.Drawing.Size(57, 13);
+            this.lblFiltroCategoria.TabIndex = 12;
+            this.lblFiltroCategoria.Text = "Categoría:";
+            // 
+            // cboFiltroCategoria
+            // 
+            this.cboFiltroCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFiltroCategoria.FormattingEnabled = true;
+            this.cboFiltroCategoria.Location = new System.Drawing.Point(435, 10);
+            this.cboFiltroCategoria.Name = "cboFiltroCategoria";
+            this.cboFiltroCategoria.Size = new System.Drawing.Size(120, 21);
+            this.cboFiltroCategoria.TabIndex = 13;
+            this.cboFiltroCategoria.SelectedIndexChanged += new System.EventHandler(this.cboFiltroCategoria_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 420);
+            this.Controls.Add(this.cboFiltroCategoria);
+            this.Controls.Add(this.lblFiltroCategoria);
+            this.Controls.Add(this.cboFiltroMarca);
+            this.Controls.Add(this.lblFiltroMarca);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.dgvArticulos);
@@ -154,12 +200,16 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnVerDetalle; // <-- Variable del botón
+        private System.Windows.Forms.Button btnVerDetalle;
         private System.Windows.Forms.Button btnMarcas;
         private System.Windows.Forms.Button btnCategorias;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.Label lblFiltroMarca;
+        private System.Windows.Forms.ComboBox cboFiltroMarca;
+        private System.Windows.Forms.Label lblFiltroCategoria;
+        private System.Windows.Forms.ComboBox cboFiltroCategoria;
     }
 }

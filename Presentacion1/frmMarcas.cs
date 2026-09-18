@@ -23,6 +23,7 @@ namespace Presentacion1
         private void frmMarcas_Load(object sender, EventArgs e)
         {
             cargar();
+ocultarColumnas();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -74,6 +75,9 @@ namespace Presentacion1
             MessageBox.Show("Marca Eliminada correctamente.");
         }
 
-        
+private void ocultarColumnas()
+        {
+            dataGridView1.Columns["Id"].Visible = false;
+        }        
     }
 }

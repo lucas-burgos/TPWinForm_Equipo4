@@ -23,9 +23,37 @@ namespace Presentacion1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dgvArticulos.AccessibleName = "Lista de productos";
             dgvArticulos.DataError += dgvArticulos_DataError;
+            txtBuscar.AccessibleDescription = "Busca por nombre o codigo";
+            cargarDesplegables();
             cargarDatos();
             dgvArticulos.Focus();
+        }
+
+        private void cargarDesplegables()
+        {
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+
+            try
+            {
+                List<Marca> listaMarcas = marcaNegocio.Listar();
+                listaMarcas.Insert(0, new Marca { Id = 0, Descripcion = "Todas" });
+                cboFiltroMarca.DataSource = listaMarcas;
+                cboFiltroMarca.ValueMember = "Id";
+                cboFiltroMarca.DisplayMember = "Descripcion";
+
+                List<Categoria> listaCategorias = categoriaNegocio.listar();
+                listaCategorias.Insert(0, new Categoria { Id = 0, Descripcion = "Todas" });
+                cboFiltroCategoria.DataSource = listaCategorias;
+                cboFiltroCategoria.ValueMember = "Id";
+                cboFiltroCategoria.DisplayMember = "Descripcion";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los filtros: " + ex.Message);
+            }
         }
 
         private void cargarDatos()
@@ -37,7 +65,7 @@ namespace Presentacion1
                 dgvArticulos.DataSource = listaArticulos;
                 dgvArticulos.ReadOnly = true;
                 dgvArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvArticulos.StandardTab = true;    
+                dgvArticulos.StandardTab = true;
                 ocultarColumnas();
             }
             catch (Exception ex)
@@ -63,12 +91,66 @@ namespace Presentacion1
             e.Cancel = true;
         }
 
+        // --- LÓGICA DEL FILTRO COMBINADO ---
+
+        private void aplicarFiltro()
+        {
+            if (listaArticulos == null) return;
+
+            List<Articulo> filtrados = listaArticulos;
+
+            string texto = txtBuscar.Text.ToLower();
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                filtrados = filtrados.Where(x =>
+                    (x.Nombre != null && x.Nombre.ToLower().Contains(texto)) ||
+                    (x.Codigo != null && x.Codigo.ToLower().Contains(texto))
+                ).ToList();
+            }
+
+            if (cboFiltroMarca.SelectedItem != null)
+            {
+                Marca marcaSel = (Marca)cboFiltroMarca.SelectedItem;
+                if (marcaSel.Id != 0)
+                {
+                    filtrados = filtrados.Where(x => x.Marca != null && x.Marca.Id == marcaSel.Id).ToList();
+                }
+            }
+
+            if (cboFiltroCategoria.SelectedItem != null)
+            {
+                Categoria categoriaSel = (Categoria)cboFiltroCategoria.SelectedItem;
+                if (categoriaSel.Id != 0)
+                {
+                    filtrados = filtrados.Where(x => x.Categoria != null && x.Categoria.Id == categoriaSel.Id).ToList();
+                }
+            }
+
+            dgvArticulos.DataSource = filtrados;
+            ocultarColumnas();
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            aplicarFiltro();
+        }
+
+        private void cboFiltroMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aplicarFiltro();
+        }
+
+        private void cboFiltroCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aplicarFiltro();
+        }
+
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             FrmArticuloAltas alta = new FrmArticuloAltas();
             alta.ShowDialog();
-            cargarDatos(); // Recarga la grilla al cerrar la ventana de alta
+            cargarDatos();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -76,10 +158,8 @@ namespace Presentacion1
             if (dgvArticulos.CurrentRow != null)
             {
                 Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-
                 FrmArticuloAltas modificar = new FrmArticuloAltas(seleccionado);
                 modificar.ShowDialog();
-
                 cargarDatos();
             }
             else
@@ -108,30 +188,11 @@ namespace Presentacion1
             }
         }
 
-        
-        private void btnMarcas_Click(object sender, EventArgs e)
-        {
-            frmMarcas ventana = new frmMarcas();
-            ventana.ShowDialog();
-        }
-
-        private void btnCategorias_Click(object sender, EventArgs e)
-        {
-            frmCategorias ventana = new frmCategorias();
-            ventana.ShowDialog();
-        }
-
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void btnVerDetalle_Click(object sender, EventArgs e)
         {
             if (dgvArticulos.CurrentRow != null)
             {
                 Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-
                 FrmVerArticulo ver = new FrmVerArticulo(seleccionado);
                 ver.ShowDialog();
             }
@@ -141,14 +202,23 @@ namespace Presentacion1
             }
         }
 
-        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        private void btnMarcas_Click(object sender, EventArgs e)
         {
-            string texto = txtBuscar.Text.ToLower();
-            List<Articulo> filtrados = listaArticulos
-                .Where(x => x.Nombre.ToLower().Contains(texto))
-                .ToList();
-            dgvArticulos.DataSource = filtrados;
-            ocultarColumnas();
+            frmMarcas ventana = new frmMarcas();
+            ventana.ShowDialog();
+            cargarDesplegables(); // Refrescamos por si agregaron marcas
+        }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+            frmCategorias ventana = new frmCategorias();
+            ventana.ShowDialog();
+            cargarDesplegables(); // Refrescamos por si agregaron categorías
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

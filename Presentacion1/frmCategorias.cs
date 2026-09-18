@@ -24,6 +24,7 @@ namespace Presentacion1
         private void frmCategorias_Load(object sender, EventArgs e)
         {
             cargar();
+            ocultarColumnas();
         }
 
         private void cargar()
@@ -79,7 +80,10 @@ namespace Presentacion1
 
             MessageBox.Show("Categoría eliminada correctamente.");
         }
-
+        private void ocultarColumnas()
+        {
+            dataGridView1.Columns["Id"].Visible = false;
+        }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
