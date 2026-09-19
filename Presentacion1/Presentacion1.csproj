@@ -64,17 +64,17 @@
     <Compile Include="frmCategorias.Designer.cs">
       <DependentUpon>frmCategorias.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDetalleArticulo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDetalleArticulo.Designer.cs">
-      <DependentUpon>frmDetalleArticulo.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmMarcas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMarcas.Designer.cs">
       <DependentUpon>frmMarcas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmVerArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmVerArticulo.Designer.cs">
+      <DependentUpon>FrmVerArticulo.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,9 +86,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCategorias.resx">
       <DependentUpon>frmCategorias.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDetalleArticulo.resx">
-      <DependentUpon>frmDetalleArticulo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMarcas.resx">
       <DependentUpon>frmMarcas.cs</DependentUpon>
