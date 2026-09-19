@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Modelo;
+using Negocio;
 
 namespace Presentacion1
 {
